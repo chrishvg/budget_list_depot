@@ -1,24 +1,33 @@
-# budget_list_depot
+# Budget Meterials
 
-## Project setup
-```
-npm install
-```
+## Install git sftware
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+[Git Windows instalation](https://git-scm.com/download/win/)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Install docker software
+[Docker Windows instalation](https://docs.docker.com/desktop/install/windows-install/)
 
-### Lints and fixes files
+## Follow the commands
+
+### Open terminal and execute the command
 ```
-npm run lint
+git clone https://github.com/chrishkv/budget_list_depot.git
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Enter to the folder "budget_list_depot" using the command
+```
+cd budget_list_depot
+```
+
+### Create the Docker image with the command
+```
+docker build -t "budge-depot" .
+```
+
+### Execute the software with the command
+```
+docker run -it -d -p 8080:80 --rm --name depot budge-depot
+```
+
+### Now you can see the software in the url
+[http://localhost:8080](http://localhost:8080)
