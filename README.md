@@ -30,4 +30,4 @@ docker compose up -d --build
 ```
 
 ### Now you can see the software in the url
-[http://localhost:8080](http://localhost:8080)
+[http://localhost](http://localhost)
