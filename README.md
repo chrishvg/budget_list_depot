@@ -26,7 +26,7 @@ docker build -t "budge-depot" .
 
 ### Execute the software with the command
 ```
-docker run -it -d -p 8080:80 --rm --name depot budge-depot
+docker compose up -d --build
 ```
 
 ### Now you can see the software in the url
