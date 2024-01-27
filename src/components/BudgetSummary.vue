@@ -1,55 +1,34 @@
 <template>
   <v-row style="height: 100vh">
     <v-col cols="6">
-      <v-file-input
-        v-model="files"
-        color="deep-purple-accent-4"
-        counter
-        label="File input"
-        placeholder="Select your file"
-        prepend-icon="mdi-paperclip"
-        variant="outlined"
-        style="height: 100vh"
-      >
-        <template v-slot:selection="{ fileNames }">
-          <template v-for="(fileName) in fileNames" :key="fileName">
-            <v-chip
-              color="deep-purple-accent-4"
-              label
-              size="small"
-              class="me-2"
-            >
-              {{ fileName }}
-            </v-chip>
-          </template>
-        </template>
-      </v-file-input>
+      <FileInputComponent @listMaterials="getListMaterials"/>
     </v-col>
     <v-col cols="6">
+      <!-- <button @click="scrapePage('https://www.homedepot.ca/search?q=chair%20white')">Scrapear Página</button> -->
       <button @click="scrapePage('https://quotes.toscrape.com/')">Scrapear Página</button>
       <div v-if="scrapedData">
         <h2>{{ scrapedData.title }}</h2>
         <p>{{ scrapedData.description }}</p>
       </div>
+      <ul>
+        <li v-for="item in listData" :key="item.id">{{ item }}</li>
+      </ul>
     </v-col>
   </v-row>
 </template>
 
 <script>
 import axios from 'axios'
+import FileInputComponent from './FileInput.vue';
 
 export default {
+  components:{
+    FileInputComponent,
+  },
   data() {
     return {
       scrapedData: null,
-      files: [],
-    };
-  },
-
-  watch: {
-    files: function(oldVal, newVal) {
-      console.log(oldVal)
-      console.log(newVal)
+      listData:[],
     }
   },
 
@@ -66,7 +45,12 @@ export default {
         .catch(error => {
           console.error(error);
         });
-    }
+    },
+    getListMaterials(listMaterials) {
+
+      //console.log(listMaterials)
+      this.listData = listMaterials
+    },
   }
 };
 </script>

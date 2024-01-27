@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld />
+  <BudgetSummary />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BudgetSummary from './components/BudgetSummary.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    BudgetSummary,
   }
 }
 </script>
