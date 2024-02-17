@@ -10,9 +10,7 @@
         <h2>{{ scrapedData.title }}</h2>
         <p>{{ scrapedData.description }}</p>
       </div>
-      <ul>
-        <li v-for="item in listData" :key="item.id">{{ item }}</li>
-      </ul>
+      <ListOfMaterials :materials="listData"/>
     </v-col>
   </v-row>
 </template>
@@ -20,11 +18,13 @@
 <script>
 import axios from 'axios'
 import FileInputComponent from './FileInput.vue';
+import ListOfMaterials from './ListOfMaterials.vue';
 
 export default {
   components:{
     FileInputComponent,
-  },
+    ListOfMaterials
+},
   data() {
     return {
       scrapedData: null,
@@ -47,8 +47,6 @@ export default {
         });
     },
     getListMaterials(listMaterials) {
-
-      //console.log(listMaterials)
       this.listData = listMaterials
     },
   }
