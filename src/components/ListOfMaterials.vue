@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-title class="d-flex align-center pe-2">
+    <v-card-title class="d-flex">
       <v-icon icon="mdi-video-input-component"></v-icon> &nbsp;
       List Of Materials
 
@@ -43,15 +43,47 @@
       </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-icon
-          size="small"
           class="me-2"
           @click="selectItem(item)"
         >
           mdi-pencil
         </v-icon>
+        <v-icon
+          class="me-2"
+          @click="deleteItem(item.id)"
+        >
+          mdi-close	
+        </v-icon>
       </template>
     </v-data-table>
   </v-card>
+   <!-- Modal de confirmación -->
+  <v-dialog v-model="mostrarModalEliminar" max-width="500px">
+    <v-card>
+      <v-card-title class="headline">Confirmation</v-card-title>
+      <v-card-text>Are you sure you want to remove this item?</v-card-text>
+      <v-card-actions>
+        <v-btn
+          class="text-none text-subtitle-1"
+          color="red"
+          size="small"
+          variant="elevated"
+          @click="eliminar"
+        >
+          Delete
+        </v-btn>
+        <v-btn
+          class="text-none text-subtitle-1"
+          color="grey"
+          size="small"
+          variant="elevated"
+          @click="cerrarModal"
+        >
+        Cancel
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
   
   <script>
@@ -68,6 +100,8 @@
       return {
         search: ref(''),
         itemsPerPage: 12,
+        mostrarModalEliminar: false,
+        idEliminar: null,
         groupBy: [
           { key: 'group', order: 'asc' },
         ],
@@ -84,8 +118,19 @@
       selectItem(item) {
         alert("funciona")
         console.log(item)
-      }
+      },
+      deleteItem(id) {
+        this.idEliminar = id
+        this.mostrarModalEliminar = true
+      },
+      eliminar() {
+        this.$emit('delete', this.idEliminar)
+        this.cerrarModal()
+      },
+      cerrarModal() {
+        this.mostrarModalEliminar = false
+        this.idEliminar = null
+      },
     },
   };
   </script>
-  

@@ -10,7 +10,7 @@
         <h2>{{ scrapedData.title }}</h2>
         <p>{{ scrapedData.description }}</p>
       </div>
-      <ListOfMaterials :materials="listData"/>
+      <ListOfMaterials :materials="listData" @delete="deleteItem"/>
     </v-col>
   </v-row>
 </template>
@@ -48,6 +48,9 @@ export default {
     },
     getListMaterials(listMaterials) {
       this.listData = listMaterials
+    },
+    deleteItem(id) {
+      this.listData = this.listData.filter(item => item.id !== id);
     },
   }
 };
