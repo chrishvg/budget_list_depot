@@ -1,9 +1,9 @@
 <template>
   <v-row style="height: 100vh">
-    <v-col cols="6">
+    <v-col cols="2">
       <FileInputComponent @listMaterials="getListMaterials"/>
     </v-col>
-    <v-col cols="6">
+    <v-col cols="10">
       <!-- <button @click="scrapePage('https://www.homedepot.ca/search?q=chair%20white')">Scrapear Página</button> -->
       <button @click="scrapePage('https://quotes.toscrape.com/')">Scrapear Página</button>
       <div v-if="scrapedData">
@@ -24,7 +24,7 @@ export default {
   components:{
     FileInputComponent,
     ListOfMaterials
-},
+  },
   data() {
     return {
       scrapedData: null,

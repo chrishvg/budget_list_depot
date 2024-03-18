@@ -57,39 +57,23 @@
       </template>
     </v-data-table>
   </v-card>
-   <!-- Modal de confirmación -->
-  <v-dialog v-model="mostrarModalEliminar" max-width="500px">
-    <v-card>
-      <v-card-title class="headline">Confirmation</v-card-title>
-      <v-card-text>Are you sure you want to remove this item?</v-card-text>
-      <v-card-actions>
-        <v-btn
-          class="text-none text-subtitle-1"
-          color="red"
-          size="small"
-          variant="elevated"
-          @click="eliminar"
-        >
-          Delete
-        </v-btn>
-        <v-btn
-          class="text-none text-subtitle-1"
-          color="grey"
-          size="small"
-          variant="elevated"
-          @click="cerrarModal"
-        >
-        Cancel
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <ConfirModal v-model="showModalDelete" 
+    @confirmDelete="confirmDelete" 
+    @closeDialog="closeConfirmModal" 
+  />
+  <MaterialsModal v-model="showModalMaterials" @closeDialog="closeMaterialsModal"/>
 </template>
   
-  <script>
+<script>
   import { ref } from 'vue';
+  import ConfirModal from './ConfirModal';
+  import MaterialsModal from "./MaterialsModal";
   
   export default {
+    components: {
+      ConfirModal,
+      MaterialsModal,
+    },
     props: {
       materials: {
         type: Array,
@@ -100,8 +84,9 @@
       return {
         search: ref(''),
         itemsPerPage: 12,
-        mostrarModalEliminar: false,
-        idEliminar: null,
+        showModalDelete: false,
+        showModalMaterials: false,
+        idDelete: null,
         groupBy: [
           { key: 'group', order: 'asc' },
         ],
@@ -116,21 +101,24 @@
     },
     methods: {
       selectItem(item) {
-        alert("funciona")
+        this.showModalMaterials = true
         console.log(item)
       },
       deleteItem(id) {
-        this.idEliminar = id
-        this.mostrarModalEliminar = true
+        this.idDelete = id
+        this.showModalDelete = true
       },
-      eliminar() {
-        this.$emit('delete', this.idEliminar)
-        this.cerrarModal()
+      confirmDelete() {
+        this.$emit('delete', this.idDelete)
+        this.closeConfirmModal()
       },
-      cerrarModal() {
-        this.mostrarModalEliminar = false
-        this.idEliminar = null
+      closeConfirmModal() {
+        this.showModalDelete = false
+        this.idDelete = null
       },
+      closeMaterialsModal() {
+        this.showModalMaterials = false
+      }
     },
   };
   </script>

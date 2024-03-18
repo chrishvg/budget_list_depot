@@ -1,6 +1,6 @@
 <template>
   <usecsv-button importerKey="your-importer-key">
-    <p class="text-md-center">Import Data</p>
+    <p class="text-md-center">Types: txt | csv | html | xml</p>
   </usecsv-button>
   <v-file-input
     @change="handleFileUpload"
