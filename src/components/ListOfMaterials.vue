@@ -61,7 +61,10 @@
     @confirmDelete="confirmDelete" 
     @closeDialog="closeConfirmModal" 
   />
-  <MaterialsModal v-model="showModalMaterials" @closeDialog="closeMaterialsModal"/>
+  <MaterialsModal v-model="showModalMaterials"
+    :showDialog="showModalMaterials"
+    :description="description"
+    @closeDialog="closeMaterialsModal"/>
 </template>
   
 <script>
@@ -86,7 +89,8 @@
         itemsPerPage: 12,
         showModalDelete: false,
         showModalMaterials: false,
-        idDelete: null,
+        idSelected: null,
+        description: '',
         groupBy: [
           { key: 'group', order: 'asc' },
         ],
@@ -102,19 +106,21 @@
     methods: {
       selectItem(item) {
         this.showModalMaterials = true
+        this.idSelected = item.id
+        this.description = item.description
         console.log(item)
       },
       deleteItem(id) {
-        this.idDelete = id
+        this.idSelected = id
         this.showModalDelete = true
       },
       confirmDelete() {
-        this.$emit('delete', this.idDelete)
+        this.$emit('delete', this.idSelected)
         this.closeConfirmModal()
       },
       closeConfirmModal() {
         this.showModalDelete = false
-        this.idDelete = null
+        this.idSelected = null
       },
       closeMaterialsModal() {
         this.showModalMaterials = false
